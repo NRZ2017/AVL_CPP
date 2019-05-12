@@ -14,14 +14,16 @@ public:
 	int Height;
 
 	int ChildCount();
-	std::unique_ptr<AVL_Node<T>>& FirstChild();
+	//std::unique_ptr<AVL_Node<T>>& FirstChild();
+	AVL_Node<T>* FirstChild();
 	int Balance();
 	void UpdateHeight();
 
-	AVL_Node(T data, std::unique_ptr<AVL_Node<T>> parent = nullptr)
+	AVL_Node(T data)//, std::unique_ptr<AVL_Node<T>> parent = nullptr)
 	{
 		Data = data;
-		Parent = parent.get;
+		Parent = nullptr;
+     	//Parent = parent.get();
 		Height = 1;
 	}
 private:
@@ -44,15 +46,15 @@ int AVL_Node<T>::ChildCount()
 }
 
 template <typename T>
-std::unique_ptr<AVL_Node<T>>& AVL_Node<T>::FirstChild()
+AVL_Node<T>* AVL_Node<T>::FirstChild()
 {
 	if (LeftChild != nullptr)
 	{
-		return LeftChild;
+		return LeftChild.get();
 	}
 	else
 	{
-		return RightChild;
+		return RightChild.get();
 	}
 }
 
